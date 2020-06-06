@@ -47,6 +47,7 @@ export default {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json',
+                    'X-Forwarded-Proto': 'http',
                     },
 
                     body: JSON.stringify(data),
