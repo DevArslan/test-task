@@ -1,29 +1,42 @@
 <template>
   <div id="app">
-    <authForm></authForm>
+    <navigation v-if="isAuthenticated"></navigation>
+    <div class="content">
+      <router-view />
+    </div>
+    
   </div>
 </template>
 
 <script>
-
-import authForm from './components/authForm.vue'
-
+// @ is an alias to /src
+import navigation from '@/components/navigation.vue';
 export default {
-  name: 'App',
   components: {
-    authForm,
+    navigation,
+  },
+  data() {
+    return {
+      isAuthenticated: localStorage.getItem('token'),
+    };
+  },
+  beforeUpdate(){
+    this.isAuthenticated = localStorage.getItem('token')
   }
-}
+
+};
 </script>
 
 <style lang="scss">
+.content{
+  margin-top:2%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 body{
   background-color: #2c3e50;
@@ -33,6 +46,8 @@ body{
   button:focus {
     outline: none;
   }
+  padding: 0;
+  margin:0;
 }
 button {
   padding: 0;

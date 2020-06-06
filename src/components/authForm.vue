@@ -2,7 +2,7 @@
     
     <div class="authForm">
 
-        <form  action="" method="post">
+        <form @submit.prevent="auth" method="post">
             <ul>
                 <li>
                     <label for="login">Login</label>
@@ -13,7 +13,7 @@
                     <input type="password" v-model="password" name="password" />
                 </li>
                 <li>
-                    <button class="authButton" @click.prevent="auth">Sign In</button>
+                    <input type="submit" value="Sign In" class="authButton" >
                 </li>            
             </ul>
         </form>
@@ -52,11 +52,12 @@ export default {
                     body: JSON.stringify(data),
                     })
                     .then(res => res.json())
-                    
                     .then(data => localStorage.setItem('token',data.token))
-                    // if(localStorage.getItem('auth_token')){
-                    //     this.$router.push('/')
-                    // }
+                    if(localStorage.getItem('token')){
+                        this.$router.push('/list/')
+                    }else{
+                        alert('Пароль или логин введены неверно')
+                    }
             }
             if (!this.login) {
                 alert('Требуется указать имя');
