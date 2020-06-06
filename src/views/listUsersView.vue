@@ -33,7 +33,7 @@ export default {
         },
   },
   mounted() {
-    const url = 'http://emphasoft-test-assignment.herokuapp.com/api/v1/users/';
+    const url = 'https://emphasoft-test-assignment.herokuapp.com/api/v1/users/';
     const token = localStorage.getItem('token');
     fetch(url,{
         headers: {
