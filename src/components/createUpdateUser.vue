@@ -163,7 +163,7 @@ export default {
         }
 
         if (this.username && this.password && this.isActive && passwordLength>7 && passwordUpperCasePres == true && passwordNumberPres == true && passwordLatPres == true) {
-            const url = 'https://emphasoft-test-assignment.herokuapp.com/api/v1/users/'
+            const url = 'http://emphasoft-test-assignment.herokuapp.com/api/v1/users/'
             const token = localStorage.getItem('token');
             const data = {
                 id: this.id,
@@ -223,7 +223,7 @@ export default {
         
         console.log(passwordLength)
         if (this.username && this.password && this.isActive && passwordLength>7 && passwordUpperCasePres == true && passwordNumberPres == true && passwordLatPres == true) {
-            const url = 'https://emphasoft-test-assignment.herokuapp.com/api/v1/users/'+this.id+'/'
+            const url = 'http://emphasoft-test-assignment.herokuapp.com/api/v1/users/'+this.id+'/'
             const token = localStorage.getItem('token');
             const data = {
                 username: this.username,
