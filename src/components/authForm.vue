@@ -53,11 +53,17 @@ export default {
                     })
                     .then(res => res.json())
                     .then(data => localStorage.setItem('token',data.token))
-                    if(localStorage.getItem('token')){
-                        this.$router.push('/list/')
-                    }else{
-                        alert('Пароль или логин введены неверно')
-                    }
+                    .then(()=>{
+                        const auth_token = localStorage.getItem('token')
+                        if(auth_token){
+                            this.$router.push('/list/')
+                        }else{
+                            alert('Пароль или логин введены неверно')
+                        }
+                    })
+                    
+                    
+                    
             }
             if (!this.login) {
                 alert('Требуется указать имя');

@@ -28,6 +28,12 @@
             color: white;
         }
     }
+    @media screen and (max-width: 1024px) {
+        .navigation{
+            font-size: 3rem;
+            height: 10vw;
+        }
+    }
 </style>
 
 <script>

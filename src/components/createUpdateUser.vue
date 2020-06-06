@@ -25,7 +25,7 @@
         </li>
         <li>
           <label for="isActive">Активность</label>
-          <input type="checkbox" v-model="isActive" name="isActive" />
+          <input class="inputCheckbox" type="checkbox" v-model="isActive" name="isActive" />
         </li>
         <li>
           <label for="lastLogin">Последняя авторизация</label>
@@ -33,10 +33,13 @@
         </li>
         <li>
           <label for="superUser">Super user</label>
-          <input type="checkbox" v-model="superUser" name="superUser" />
+          <input class="inputCheckbox" type="checkbox" v-model="superUser" name="superUser" />
         </li>
-        <button class="regButton" @click.prevent="registerUser">Регистрировать</button>
-        <button class="updateButton" @click.prevent="updateUser">Изменить</button>
+        <div class="buttons">
+            <button class="regButton" @click.prevent="registerUser">Регистрировать</button>
+            <button class="updateButton" @click.prevent="updateUser">Изменить</button>
+        </div>
+        
       </ul>
     </form>
   </div>
@@ -47,7 +50,8 @@
 <style lang="scss" scoped>
     .createUpdateUser{
         margin: 0 auto;
-        width: 15%;
+        width: 30%;
+        height: 35vw;
         color: white;
         -webkit-box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);
@@ -55,26 +59,72 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        ul{
-            padding: 0;
-            margin: 0;
-            button{
-                padding-bottom: 1px;
-                border: 1px solid #67DFD4;
-                border-radius: 3px;
-                padding: 5px 10px;
-            }
-            li{
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: flex-start;
-                label{
-                    width: 100%;
-                    display: block;
+        .createUpdateUserForm{
+            width: 100%;
+            ul{
+                padding: 0;
+                margin: 0;
+                .buttons{
+                    margin: 0 auto;
+                    display: flex;
+                    justify-content: space-between;
+                    width:80%;
                 }
-                input{
-                    width: 100%;
+                button{
+                    margin-top:2rem;
+                    padding: 1rem;
+                    border: 1px solid #67DFD4;
+                    border-radius: 3px;
+                }
+                li{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    margin-top:0.8rem;
+                    label{
+                        width: 100%;
+                        display: block;
+                    }
+                    input{
+                        margin: 0 auto;
+                        width: 90%;
+                        padding: 0.2rem;
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1024px) {
+        .createUpdateUser{
+            font-size: 4rem;
+            width: 80%;
+            height: 120vw;
+            .createUpdateUserForm{
+                width: 100%;
+                ul{
+                    li{
+                        margin-top:2rem;
+                        input{
+                            padding: 1.2rem;
+                            font-size: 3rem;
+
+                        }
+                        .inputCheckbox{
+                            height: 4rem;
+                        }
+                    }
+                    .buttons{
+                        margin: 0 auto;
+                        display: flex;
+                        justify-content: space-between;
+                        width:80%;
+                    }
+                    button{
+                        margin-top:2rem;
+                        padding: 1rem;
+                    }
                 }
             }
         }

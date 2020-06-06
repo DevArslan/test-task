@@ -30,6 +30,7 @@ export default {
 <style lang="scss">
 .content{
   margin-top:2%;
+  font-size: 1rem;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -57,4 +58,8 @@ button {
   background-color: transparent;
   cursor: pointer;
 }
+html{
+  font-size: 1vw;
+}
+
 </style>
