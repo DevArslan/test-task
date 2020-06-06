@@ -121,4 +121,23 @@ export default {
             
         }
     }
+    @media screen and (max-width: 1024px) {
+        .authForm{
+            width: 90%;
+            height: 100vw;
+            ul{
+                width:90%;
+                margin: 0 auto;
+            }
+            label{
+                font-size:4rem !important;
+            }
+            input{
+                width:100% !important;
+                font-size:6rem;
+                padding:1rem;
+            }
+        }
+        
+    }
 </style>
