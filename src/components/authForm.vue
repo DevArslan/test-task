@@ -1,0 +1,117 @@
+<template>
+    
+    <div class="authForm">
+
+        <form  action="" method="post">
+            <ul>
+                <li>
+                    <label for="login">Login</label>
+                    <input type="text" placeholder="" v-model="login" name="login" />
+                </li>
+                <li>
+                    <label for="password">Password</label>
+                    <input type="password" v-model="password" name="password" />
+                </li>
+                <li>
+                    <button class="authButton" @click.prevent="auth">Sign In</button>
+                </li>            
+            </ul>
+        </form>
+
+    </div>
+
+</template>
+
+
+<script>
+export default {
+    name: 'authForm',
+    data() {
+        return {
+            login: '',
+            password: '',
+        };
+    },
+    methods: {
+        auth () {
+            if (this.login && this.password) {
+
+                const url = 'http://emphasoft-test-assignment.herokuapp.com/api-token-auth/'
+
+                const data = {
+                    username: this.login,
+                    password: this.password,
+                }
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+
+                    body: JSON.stringify(data),
+                    })
+                    .then(res => res.json())
+                    
+                    .then(data => localStorage.setItem('token',data.token))
+                    // if(localStorage.getItem('auth_token')){
+                    //     this.$router.push('/')
+                    // }
+            }
+            if (!this.login) {
+                alert('Требуется указать имя');
+            }
+            if (!this.password) {
+                alert('Требуется указать пароль');
+            }
+        }
+    }
+}
+</script>
+
+<style lang="scss">
+    .authForm{
+        -webkit-box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);
+        width: 15%;
+        margin:0 auto;
+        border-radius: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        form{
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width:80%;
+            ul{
+                list-style: none;
+                padding: 0px;
+                li{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-top: 10%;
+                    label{
+                        display: block;
+                        text-transform: uppercase;
+                        font-size: 0.8rem;
+                    }
+                    input{
+                        width: 90%;
+                    }
+                    .authButton{
+                        padding-bottom: 1px;
+                        border: 1px solid #67DFD4;
+                        border-radius: 3px;
+                        padding: 5px 10px;
+                    }
+                }
+            }
+            
+        }
+    }
+</style>
