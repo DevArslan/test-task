@@ -35,7 +35,7 @@ export default {
     methods: {
         auth () {
             if (this.login && this.password) {
-                const url = '/* http://emphasoft-test-assignment.herokuapp.com/api-token-auth/:splat 200'
+                const url = '/api-token-auth* http://emphasoft-test-assignment.herokuapp.com/:splat 200'
 
                 const data = {
                     username: this.login,
