@@ -54,7 +54,7 @@ export default {
                     .then(data => localStorage.setItem('token',data.token))
                     .then(()=>{
                         const auth_token = localStorage.getItem('token')
-                        if(auth_token){
+                        if(auth_token != "undefined"){
                             this.$router.push('/list/')
                         }else{
                             alert('Пароль или логин введены неверно')
