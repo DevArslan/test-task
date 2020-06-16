@@ -15,6 +15,7 @@
 
 <style lang="scss">
     .navigation{
+        background: #2c3e50;
         width:100%;
         height: 4vw;
         -webkit-box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);

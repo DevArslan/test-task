@@ -38,9 +38,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  
 }
 body{
-  background-color: #2c3e50;
+  background-color: #6F8CA8;
   input:focus,
   select:focus,
   textarea:focus,

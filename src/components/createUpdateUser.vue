@@ -49,6 +49,7 @@
 
 <style lang="scss" scoped>
     .createUpdateUser{
+        background-color: #2c3e50;
         margin: 0 auto;
         width: 30%;
         height: 35vw;
@@ -142,7 +143,7 @@ export default {
       firstName: '',
       lastName: '',
       password: '',
-      isActive: '',
+      isActive: false,
       lastLogin: '',
       superUser: '',
     };
@@ -162,7 +163,7 @@ export default {
             }
         }
 
-        if (this.username && this.password && this.isActive && passwordLength>7 && passwordUpperCasePres == true && passwordNumberPres == true && passwordLatPres == true) {
+        if (this.username && this.password && passwordLength>7 && passwordUpperCasePres == true && passwordNumberPres == true && passwordLatPres == true) {
             const url = 'http://emphasoft-test-assignment.herokuapp.com/api/v1/users/'
             const token = localStorage.getItem('token');
             const data = {
@@ -176,23 +177,33 @@ export default {
                 is_superuser: this.superUser,
             };
             console.log(data)
-            fetch(url, {
+            try {
+                fetch(url, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify(data),
-            });
+                }).then((res)=>{ if(!res.ok){
+                        alert('Такой пользователь уже существует')
+                        console.log(res.json())
+                    }else{
+                        alert('Пользователь успешно зарегистрирован')
+                    }
+                })
+            
+            ;
+            } catch (error) {
+                alert('Возникла ошибка')
+            }
+            
         }
         if (!this.username) {
             alert('Требуется указать имя');
         }
         if (!this.password) {
             alert('Требуется указать пароль');
-        }
-        if (!this.isActive) {
-            alert('Требуется указать active');
         }
         if(passwordNumberPres == false){
             alert('Ваш пароль должен содержать цифры');
@@ -222,7 +233,7 @@ export default {
         }
         
         console.log(passwordLength)
-        if (this.username && this.password && this.isActive && passwordLength>7 && passwordUpperCasePres == true && passwordNumberPres == true && passwordLatPres == true) {
+        if (this.username && this.password && passwordLength>7 && passwordUpperCasePres == true && passwordNumberPres == true && passwordLatPres == true) {
             const url = 'http://emphasoft-test-assignment.herokuapp.com/api/v1/users/'+this.id+'/'
             const token = localStorage.getItem('token');
             const data = {
@@ -249,9 +260,6 @@ export default {
         }
         if (!this.password) {
             alert('Требуется указать пароль');
-        }
-        if (!this.isActive) {
-            alert('Требуется указать active');
         }
         if(passwordNumberPres == false){
             alert('Ваш пароль должен содержать цифры');
