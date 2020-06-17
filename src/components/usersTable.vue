@@ -13,7 +13,7 @@
         <thead>
           <tr>
             <th>First name</th>
-            <th>id</th>
+            <th class="sortById" @click="sortByID()">id</th>
             <th>is Active</th>
             <th>is Superuser</th>
             <th>last login</th>
@@ -56,6 +56,9 @@
     table-layout: fixed;
     th {
       border-bottom: solid 1px #ccc;
+    }
+    .sortById{
+      cursor: pointer;
     }
   }
 }
@@ -136,10 +139,45 @@ export default {
   },
   data() {
     return {
-      username: ""
+      username: "",
+      reverse: false
     };
   },
+  methods:{
+    idSortFunction(a, b) {
+      if (a.id < b.id) {
+        return -1;
+      }
+      if (a.id > b.id) {
+        return 1;
+      }
+
+      console.log(this.reverse);
+      return 0;
+    },
+    reverseIdSortFunction(a, b) {
+      if (a.id < b.id) {
+        return 1;
+      }
+      if (a.id > b.id) {
+        return -1;
+      }
+
+      console.log(this.reverse);
+      return 0;
+    },
+    sortByID() {
+      if (this.reverse === true) {
+        this.users = this.users.sort(this.idSortFunction);
+        this.reverse = false;
+      } else {
+        this.users = this.users.sort(this.reverseIdSortFunction);
+        this.reverse = true;
+      }
+    },
+  },
   computed: {
+    
     filteredList() {
       const tempUserName = this.username.toUpperCase();
       console.log(tempUserName);

@@ -246,14 +246,29 @@ export default {
                 is_superuser: this.superUser,
             };
             console.log(data)
-            fetch(url, {
+
+            try {
+                fetch(url, {
                 method: 'PUT',
                 headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify(data),
+            }).then((res)=>{ if(res.statusText == 'Not Found'){
+                        alert('Пользователя с таким ID не существует')
+                        console.log(res.json())
+                        console.log(res.statusText)
+                    }else if(res.statusText == 'Bad Request'){
+                        alert('Данное имя пользователя уже занято')
+                    }else{
+                        alert('Данные пользователя успешно изменены')
+                    }
             });
+            } catch (error) {
+                alert('Запрос не выполнен')
+            }
+
         }
         if (!this.username) {
             alert('Требуется указать имя');
