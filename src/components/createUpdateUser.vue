@@ -18,10 +18,12 @@
         <li>
           <label for="username">Username</label>
           <input type="text" v-model="username" name="username" />
+          <p class="errors">{{usernameErrors}}</p>
         </li>
         <li>
           <label for="password">Password</label>
           <input type="password" v-model="password" name="password" />
+          <p class="errors">{{passwordErrors}}</p>
         </li>
         <li>
           <label for="isActive">Активность</label>
@@ -35,6 +37,7 @@
           <label for="superUser">Super user</label>
           <input class="inputCheckbox" type="checkbox" v-model="superUser" name="superUser" />
         </li>
+        <p class="result">{{result}}</p>
         <div class="buttons">
             <button class="regButton" @click.prevent="registerUser">Регистрировать</button>
             <button class="updateButton" @click.prevent="updateUser">Изменить</button>
@@ -52,7 +55,7 @@
         background-color: #2c3e50;
         margin: 0 auto;
         width: 30%;
-        height: 35vw;
+        padding-bottom: 1rem;
         color: white;
         -webkit-box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px -1px 11px 0px rgba(0,0,0,0.75);
@@ -65,6 +68,9 @@
             ul{
                 padding: 0;
                 margin: 0;
+                .result{
+                    color: #67DFD4;
+                }
                 .buttons{
                     margin: 0 auto;
                     display: flex;
@@ -93,6 +99,10 @@
                         padding: 0.2rem;
                         font-size: 1rem;
                     }
+                    .errors{
+                        padding-left: 1.2rem;
+                        color: #67DFD4;
+                    }
                 }
             }
         }
@@ -101,7 +111,7 @@
         .createUpdateUser{
             font-size: 4rem;
             width: 80%;
-            height: 120vw;
+
             .createUpdateUserForm{
                 width: 100%;
                 ul{
@@ -146,11 +156,16 @@ export default {
       isActive: false,
       lastLogin: '',
       superUser: '',
+      passwordErrors: '',
+      usernameErrors: '',
+      result: '',
     };
   },
   methods: {
       registerUser() {
-
+        this.usernameErrors = ''
+        this.passwordErrors = ''
+        this.result = ''
         var passwordUpperCasePres = false;
         const passwordLength = this.password.length;
         const passwordNumberPres = /[0-9]/.test(this.password);
@@ -186,10 +201,10 @@ export default {
                 },
                 body: JSON.stringify(data),
                 }).then((res)=>{ if(!res.ok){
-                        alert('Такой пользователь уже существует')
+                        this.result = 'Такой пользователь уже существует';
                         console.log(res.json())
                     }else{
-                        alert('Пользователь успешно зарегистрирован')
+                        this.result = 'Пользователь успешно зарегистрирован';
                     }
                 })
             
@@ -200,26 +215,28 @@ export default {
             
         }
         if (!this.username) {
-            alert('Требуется указать имя');
+            this.usernameErrors = 'Требуется указать имя';
         }
         if (!this.password) {
-            alert('Требуется указать пароль');
+            this.passwordErrors = 'Требуется указать пароль';
         }
         if(passwordNumberPres == false){
-            alert('Ваш пароль должен содержать цифры');
+            this.passwordErrors = 'Ваш пароль должен содержать цифры';
         }
         if(passwordUpperCasePres == false){
-            alert('Ваш пароль должен заглавные латинские буквы');
+            this.passwordErrors = 'Ваш пароль должен заглавные латинские буквы';
         }
         if(passwordLength < 8){
-            alert('Ваш пароль должен содержать не менее 8 символов');
+            this.passwordErrors = 'Ваш пароль должен содержать не менее 8 символов';
         }
         if(passwordLatPres == false){
-            alert('Ваш пароль должен содержать латинские буквы')
+            this.passwordErrors = 'Ваш пароль должен содержать латинские буквы';
         }
     },
     updateUser() {
-        console.log(this.password)
+        this.usernameErrors = ''
+        this.passwordErrors = ''
+        this.result = ''
         var passwordUpperCasePres = false;
         const passwordLength = this.password.length;
         const passwordNumberPres = /[0-9]/.test(this.password);
@@ -256,13 +273,13 @@ export default {
                 },
                 body: JSON.stringify(data),
             }).then((res)=>{ if(res.statusText == 'Not Found'){
-                        alert('Пользователя с таким ID не существует')
-                        console.log(res.json())
-                        console.log(res.statusText)
+                        this.result = 'Пользователя с таким ID не существует'
                     }else if(res.statusText == 'Bad Request'){
-                        alert('Данное имя пользователя уже занято')
+                        this.result = 'Данное имя пользователя уже занято'
+                    }else if(res.statusText == 'Forbidden'){
+                        this.result = 'У вас нет разрешения на выполнение этого действия'
                     }else{
-                        alert('Данные пользователя успешно изменены')
+                        this.result = 'Данные пользователя успешно изменены'
                     }
             });
             } catch (error) {
@@ -271,22 +288,22 @@ export default {
 
         }
         if (!this.username) {
-            alert('Требуется указать имя');
+            this.usernameErrors = 'Требуется указать имя';
         }
         if (!this.password) {
-            alert('Требуется указать пароль');
+            this.passwordErrors = 'Требуется указать пароль';
         }
         if(passwordNumberPres == false){
-            alert('Ваш пароль должен содержать цифры');
+            this.passwordErrors = 'Ваш пароль должен содержать цифры';
         }
         if(passwordUpperCasePres == false){
-            alert('Ваш пароль должен заглавные латинские буквы');
+            this.passwordErrors = 'Ваш пароль должен заглавные латинские буквы';
         }
         if(passwordLength < 8){
-            alert('Ваш пароль должен содержать не менее 8 символов');
+            this.passwordErrors = 'Ваш пароль должен содержать не менее 8 символов';
         }
         if(passwordLatPres == false){
-            alert('Ваш пароль должен содержать латинские буквы')
+            this.passwordErrors = 'Ваш пароль должен содержать латинские буквы';
         }
 
     }
